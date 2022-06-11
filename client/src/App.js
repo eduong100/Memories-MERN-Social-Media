@@ -16,9 +16,8 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("GETTINGPOSTS");
     dispatch(getPosts());
-  }, [currentId, dispatch]);
+  }, [dispatch]);
 
   return (
     <div>
@@ -41,6 +40,7 @@ const App = () => {
               justifyContent="space-between"
               alignItems="stretch"
               spacing={3}
+              className={classes.mainContainer}
             >
               <Grid item xs={12} sm={7}>
                 <Posts setCurrentId={setCurrentId} />
