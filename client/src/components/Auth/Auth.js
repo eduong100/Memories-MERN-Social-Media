@@ -33,6 +33,7 @@ function Auth() {
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState(initialState);
+  const [error, setError] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -48,7 +49,7 @@ function Auth() {
     }
     // Else the user is signing in
     else {
-      dispatch(signin(formData, navigate));
+      dispatch(signin(formData, navigate, setError));
     }
   };
 
@@ -139,7 +140,15 @@ function Auth() {
                 type="password"
               />
             )}
+            {error ? (
+              <Grid item xs={12} sm={12}>
+                <Typography variant="h6" align="center">
+                  Incorrect Email or Password
+                </Typography>
+              </Grid>
+            ) : null}
           </Grid>
+
           <Button
             type="submit"
             fullWidth

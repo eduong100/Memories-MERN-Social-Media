@@ -1,7 +1,7 @@
 import { AUTH } from "../constants/actionTypes";
 import * as api from "../api";
 
-export const signin = (formData, navigate) => async (dispatch) => {
+export const signin = (formData, navigate, setError) => async (dispatch) => {
   try {
     const { data } = await api.signIn(formData);
 
@@ -9,6 +9,7 @@ export const signin = (formData, navigate) => async (dispatch) => {
     navigate("/");
   } catch (err) {
     console.log(err);
+    setError(true);
   }
 };
 
