@@ -12,8 +12,6 @@ function Navbar() {
   const navigate = useNavigate();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
-  console.log(user);
-
   const logout = () => {
     dispatch({ type: "LOGOUT" });
     navigate("/");

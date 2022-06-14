@@ -7,7 +7,6 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
-
 import Likes from "./Likes";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";

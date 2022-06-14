@@ -42,7 +42,6 @@ function Auth() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     // If the user is signing up
     if (isSignup) {
       dispatch(signup(formData, navigate));
@@ -63,7 +62,6 @@ function Auth() {
   };
 
   const googleSuccess = async (res) => {
-    console.log(res);
     const token = res?.access_token;
     // const user_info = await Axios.get(
     //   `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${token}`
@@ -74,9 +72,7 @@ function Auth() {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log(user_info);
     const result = user_info.data;
-    console.log(result);
     result.googleId = result.id;
     try {
       dispatch({ type: AUTH, data: { result, token } });

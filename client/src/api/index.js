@@ -7,9 +7,7 @@ API.interceptors.request.use((req) => {
   if (storage) {
     req.headers.Authorization = `Bearer ${JSON.parse(storage).token}`;
     if (JSON.parse(storage).result.locale) {
-      console.log("IM GOOGLE");
-      req.headers.id = JSON.parse(storage).result.id;
-      console.log("SURVIVED");
+      req.headers.isGoog = true;
     }
   }
   return req;
