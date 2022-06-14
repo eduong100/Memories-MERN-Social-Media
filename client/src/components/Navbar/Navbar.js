@@ -4,7 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 //import decode from "jwt-decode";
 import useStyles from "./styles";
-import memories from "../../images/memories.png";
+import memoriesText from "../../images/memories-Text.png";
+import PFP from "../../images/PFP.jpg";
 
 function Navbar() {
   const classes = useStyles();
@@ -25,22 +26,18 @@ function Navbar() {
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <div className={classes.brandContainer}>
-        <Typography
-          component={Link}
-          to="/"
-          className={classes.heading}
-          variant="h2"
-          align="center"
+        <Link to="/" className={classes.brandContainer}>
+          <img src={memoriesText} alt="icon" height="45px" />
+        </Link>
+        <a
+          href="https://github.com/eduong100/MERN-Social-Media"
+          target="_blank"
+          rel="noreferrer noopener"
         >
-          Memories
-        </Typography>
-        <img
-          className={classes.image}
-          src={memories}
-          alt="memories"
-          height="60"
-        />
+          <img className={classes.image} src={PFP} alt="Github" height="50px" />
+        </a>
       </div>
+
       <Toolbar className={classes.toolbar}>
         {user ? (
           <div className={classes.profile}>
