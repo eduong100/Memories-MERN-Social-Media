@@ -10,20 +10,29 @@ import {
 } from "@material-ui/core";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from "react-google-login";
 import { useDispatch } from "react-redux";
 
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Input from "./Input";
+import { signin, signup } from "../../actions/auth.js";
 import Icon from "./icon";
 import useStyles from "./styles";
 import { AUTH } from "../../constants/actionTypes.js";
 
 // Need google id and token
 
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
 function Auth() {
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+  const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -31,9 +40,22 @@ function Auth() {
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    // If the user is signing up
+    if (isSignup) {
+      dispatch(signup(formData, navigate));
+    }
+    // Else the user is signing in
+    else {
+      dispatch(signin(formData, navigate));
+    }
+  };
 
-  const handleChange = () => {};
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
@@ -43,14 +65,21 @@ function Auth() {
   const googleSuccess = async (res) => {
     console.log(res);
     const token = res?.access_token;
+    // const user_info = await Axios.get(
+    //   `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${token}`
+    // );
     const user_info = await Axios.get(
-      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${token}`
+      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
     );
     console.log(user_info);
     const result = user_info.data;
     console.log(result);
+    result.googleId = result.id;
     try {
-      dispatch({ type: "AUTH", data: { result, token } });
+      dispatch({ type: AUTH, data: { result, token } });
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -86,8 +115,8 @@ function Auth() {
                   half
                 />
                 <Input
-                  name="firstName"
-                  label="First Name"
+                  name="lastName"
+                  label="Last Name"
                   handleChange={handleChange}
                   half
                 />
@@ -134,25 +163,6 @@ function Auth() {
           >
             Google Sign In
           </Button>
-          {/* <GoogleLogin
-            clientId="1009311873554-agv1klih1cdfc8picthsmmem4k2eli5i.apps.googleusercontent.com"
-            render={(renderProps) => (
-              <Button
-                className={classes.googleButton}
-                color="primary"
-                fullWidth
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-                startIcon={<Icon />}
-                variant="contained"
-              >
-                Google Sign In
-              </Button>
-            )}
-            onSuccess={googleSuccess}
-            onFailure={googleFailure}
-            cookiePolicy="single_host_origin"
-          /> */}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Button onClick={switchMode}>

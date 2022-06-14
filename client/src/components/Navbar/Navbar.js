@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+//import decode from "jwt-decode";
 import useStyles from "./styles";
 import memories from "../../images/memories.png";
 
@@ -9,7 +10,6 @@ function Navbar() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
   console.log(user);
@@ -20,13 +20,17 @@ function Navbar() {
     setUser(null);
   };
 
-  useEffect(() => {
-    const token = user?.token;
+  // useEffect(() => {
+  //   const token = user?.token;
 
-    // JWT...
+  //   if (token) {
+  //     const decodedToken = decode(token);
 
-    setUser(JSON.parse(localStorage.getItem("profile")));
-  }, [location]);
+  //     if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+  //   }
+
+  //   setUser(JSON.parse(localStorage.getItem("profile")));
+  // }, [location]);
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">

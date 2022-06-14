@@ -4,6 +4,12 @@ export default (posts = [], action) => {
     case DELETE:
       return posts.filter((post) => post._id !== action.payload);
     case UPDATE:
+      console.log("UPDATING", action.payload);
+      console.log(
+        posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        )
+      );
       return posts.map((post) =>
         post._id === action.payload._id ? action.payload : post
       );
