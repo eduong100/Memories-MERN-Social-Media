@@ -1,11 +1,22 @@
 import PostMessage from "../models/postMessage.js";
 import mongoose from "mongoose";
-
+const LIMIT = 8;
 export const getPosts = async (req, res) => {
+  const { page } = req.query;
   console.log("GETTING");
   try {
-    const PostMessages = await PostMessage.find();
-    res.status(200).json(PostMessages);
+    const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
+    const total = await PostMessage.countDocuments({});
+    const posts = await PostMessage.find()
+      .sort({ _id: -1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+    console.log(posts.length);
+    res.status(200).json({
+      data: posts,
+      currentPage: Number(page),
+      numberOfPages: Math.ceil(total / LIMIT),
+    });
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -21,10 +32,21 @@ export const getPostsBySearch = async (req, res) => {
     const regexTags = tags
       ? tags.split(",").map((tag) => new RegExp(tag, "i"))
       : [];
-    const posts = await PostMessage.find({
-      $or: [{ title }, { tags: { $in: regexTags } }],
-    });
-    // console.log(posts);
+    console.log(regexTags);
+    let posts;
+    if (searchQuery && tags) {
+      posts = await PostMessage.find({
+        $or: [{ title }, { tags: { $in: regexTags } }],
+      });
+    } else if (searchQuery) {
+      posts = await PostMessage.find({ title });
+    } else if (tags) {
+      posts = await PostMessage.find({ tags: { $in: regexTags } });
+    } else {
+      posts = await PostMessage.find({}).sort({ _id: -1 }).limit(LIMIT);
+    }
+
+    console.log(posts.length);
     res.json({ data: posts });
   } catch (err) {
     res.status(404).json({ message: err.message });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Grow,
   Grid,
@@ -17,7 +17,7 @@ import Form from "../Form/Form";
 
 import useStyles from "./styles";
 
-import { getPosts, getPostsBySearch } from "../../actions/posts";
+import { getPostsBySearch } from "../../actions/posts";
 import Pagination from "../Pagination";
 
 const Home = () => {
@@ -30,10 +30,12 @@ const Home = () => {
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") || 1;
   console.log(page);
+  const searchQuery = searchParams.get("searchQuery");
+  //const tags = searchParams.get("tags");
 
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getPosts());
+  // }, [dispatch]);
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
@@ -107,9 +109,11 @@ const Home = () => {
               </Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
-            <Paper className={classes.pagination} elevation={6}>
-              <Pagination page={page} />
-            </Paper>
+            {!searchQuery && !tags.length && (
+              <Paper className={classes.pagination} elevation={6}>
+                <Pagination page={page} />
+              </Paper>
+            )}
           </Grid>
         </Grid>
       </Container>
