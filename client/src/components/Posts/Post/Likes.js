@@ -2,10 +2,9 @@ import React from "react";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 
-const Likes = ({ post }) => {
+const Likes = ({ likes }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
-  const likes = post.likes;
-
+  console.log("LIKE UPDATE");
   const userId = user?.result.googleId || user?.result?._id;
 
   if (likes.length > 0) {

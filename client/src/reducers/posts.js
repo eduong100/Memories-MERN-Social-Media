@@ -6,6 +6,8 @@ import {
   FETCH_BY_SEARCH,
   START_LOADING,
   END_LOADING,
+  FETCH_POST,
+  COMMENT,
 } from "../constants/actionTypes";
 
 /*
@@ -34,6 +36,13 @@ export default (state = { isLoading: true, posts: [] }, action) => {
           post._id === action.payload._id ? action.payload : post
         ),
       };
+    case COMMENT:
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
     case FETCH_ALL:
       return {
         ...state,
@@ -44,6 +53,9 @@ export default (state = { isLoading: true, posts: [] }, action) => {
     case FETCH_BY_SEARCH:
       console.log(action.payload);
       return { ...state, posts: action.payload };
+    case FETCH_POST:
+      console.log(action.payload);
+      return { ...state, post: action.payload };
     case CREATE:
       return { ...state, posts: [action.payload, ...state.posts] };
 

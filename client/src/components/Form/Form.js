@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
+import ChipInput from "material-ui-chip-input";
 import FileBase from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, updatePost } from "../../actions/posts";
 
 import useStyles from "./styles";
+import { useNavigate } from "react-router-dom";
 
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     title: "",
     message: "",
-    tags: "",
+    tags: [],
     selectedFile: "",
   });
   const post = useSelector((state) =>
@@ -19,6 +21,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (post) {
@@ -26,15 +29,31 @@ const Form = ({ currentId, setCurrentId }) => {
     }
   }, [post]);
 
+  const handleAdd = (tag) =>
+    setPostData((prevPostData) => ({
+      ...prevPostData,
+      tags: [...prevPostData.tags, tag.trim()],
+    }));
+
+  const handleDelete = (tagToDelete) =>
+    setPostData((prevPostData) => ({
+      ...prevPostData,
+      tags: prevPostData.tags.filter((tag) => tag !== tagToDelete),
+    }));
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (currentId) {
       dispatch(
-        updatePost(currentId, { ...postData, name: user?.result?.name })
+        updatePost(
+          currentId,
+          { ...postData, name: user?.result?.name },
+          navigate
+        )
       );
     } else {
-      dispatch(createPost({ ...postData, name: user?.result?.name }));
+      dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));
     }
     clear();
   };
@@ -44,7 +63,7 @@ const Form = ({ currentId, setCurrentId }) => {
     setPostData({
       title: "",
       message: "",
-      tags: "",
+      tags: [],
       selectedFile: "",
     });
   };
@@ -102,7 +121,7 @@ const Form = ({ currentId, setCurrentId }) => {
             setPostData({ ...postData, message: e.target.value });
           }}
         />
-        <TextField
+        {/* <TextField
           name="tags"
           variant="outlined"
           label="Tags"
@@ -111,7 +130,18 @@ const Form = ({ currentId, setCurrentId }) => {
           onChange={(e) => {
             setPostData({ ...postData, tags: e.target.value.split(",") });
           }}
-        />
+        /> */}
+        <div style={{ padding: "5px 0", width: "94%" }}>
+          <ChipInput
+            name="tags"
+            value={postData.tags}
+            onAdd={handleAdd}
+            onDelete={handleDelete}
+            label="Tags"
+            variant="outlined"
+            fullWidth
+          />
+        </div>
         <div className={classes.fileInput}>
           <FileBase
             type="file"

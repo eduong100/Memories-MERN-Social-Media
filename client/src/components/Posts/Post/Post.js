@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardActions,
@@ -13,13 +13,31 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { deletePost, likePost } from "../../../actions/posts";
+import { useNavigate } from "react-router-dom";
 
 import useStyles from "./styles";
 
 const Post = ({ post, setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
+  const userId = user?.result.googleId || user?.result?._id;
+  const hasLikedPost = post.likes.find((like) => like === userId);
+  const [likes, setLikes] = useState(post?.likes);
+
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const openPost = () => {
+    navigate(`/posts/${post._id}`);
+  };
+
+  const handleClick = async () => {
+    dispatch(likePost(post._id));
+    if (hasLikedPost) {
+      setLikes(post.likes.filter((id) => id !== userId));
+    } else {
+      setLikes([...post.likes, userId]);
+    }
+  };
 
   return (
     <Card className={classes.card} raised elevation={6}>
@@ -27,6 +45,8 @@ const Post = ({ post, setCurrentId }) => {
         className={classes.media}
         image={post.selectedFile}
         title={post.title}
+        style={{ cursor: "pointer" }}
+        onClick={openPost}
       />
       <div className={classes.overlay}>
         <Typography variant="h6">{post.name}</Typography>
@@ -34,6 +54,7 @@ const Post = ({ post, setCurrentId }) => {
           {moment(post.createdAt).fromNow()}
         </Typography>
       </div>
+
       {(user?.result?.googleId === post?.creator ||
         user?.result?._id === post?.creator) && (
         <div className={classes.overlay2}>
@@ -51,7 +72,13 @@ const Post = ({ post, setCurrentId }) => {
           {post.tags.map((tag) => `#${tag} `)}
         </Typography>
       </div>
-      <Typography className={classes.title} variant="h5" gutterBottom>
+      <Typography
+        className={classes.title}
+        variant="h5"
+        gutterBottom
+        onClick={openPost}
+        style={{ cursor: "pointer" }}
+      >
         {post.title}
       </Typography>
       <CardContent>
@@ -59,16 +86,15 @@ const Post = ({ post, setCurrentId }) => {
           {post.message}
         </Typography>
       </CardContent>
+
       <CardActions className={classes.cardActions}>
         <Button
           size="small"
           color="primary"
-          onClick={() => {
-            dispatch(likePost(post._id));
-          }}
+          onClick={handleClick}
           disabled={!user?.result}
         >
-          <Likes post={post} />
+          <Likes post={post} likes={likes} />
         </Button>
         {(user?.result?.googleId === post?.creator ||
           user?.result?._id === post?.creator) && (

@@ -22,6 +22,18 @@ export const getPosts = async (req, res) => {
   }
 };
 
+export const getPost = async (req, res) => {
+  console.log("GETTING SINGLE POST");
+  const { id } = req.params;
+  console.log(id);
+  try {
+    const post = await PostMessage.findById(id);
+    res.status(200).json(post);
+  } catch (err) {
+    res.status(404).json({ message: err });
+  }
+};
+
 export const getPostsBySearch = async (req, res) => {
   console.log("GETTING BY SEARCH");
   const { searchQuery, tags } = req.query;
@@ -115,6 +127,21 @@ export const likePost = async (req, res) => {
     new: true,
   });
   console.log("LIKING POST");
+
+  res.json(updatedPost);
+};
+
+export const commentPost = async (req, res) => {
+  const { id } = req.params;
+  const { value } = req.body;
+
+  const post = await PostMessage.findById(id);
+
+  post.comments.push(value);
+
+  const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {
+    new: true,
+  });
 
   res.json(updatedPost);
 };
