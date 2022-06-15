@@ -11,7 +11,6 @@ export const getPosts = async (req, res) => {
       .sort({ _id: -1 })
       .limit(LIMIT)
       .skip(startIndex);
-    console.log(posts.length);
     res.status(200).json({
       data: posts,
       currentPage: Number(page),
@@ -25,7 +24,6 @@ export const getPosts = async (req, res) => {
 export const getPost = async (req, res) => {
   console.log("GETTING SINGLE POST");
   const { id } = req.params;
-  console.log(id);
   try {
     const post = await PostMessage.findById(id);
     res.status(200).json(post);
@@ -37,14 +35,11 @@ export const getPost = async (req, res) => {
 export const getPostsBySearch = async (req, res) => {
   console.log("GETTING BY SEARCH");
   const { searchQuery, tags } = req.query;
-  console.log(tags);
-
   try {
     const title = new RegExp(searchQuery, "i"); // i stands for ignore case
     const regexTags = tags
       ? tags.split(",").map((tag) => new RegExp(tag, "i"))
       : [];
-    console.log(regexTags);
     let posts;
     if (searchQuery && tags) {
       posts = await PostMessage.find({
@@ -57,8 +52,6 @@ export const getPostsBySearch = async (req, res) => {
     } else {
       posts = await PostMessage.find({}).sort({ _id: -1 }).limit(LIMIT);
     }
-
-    console.log(posts.length);
     res.json({ data: posts });
   } catch (err) {
     res.status(404).json({ message: err.message });

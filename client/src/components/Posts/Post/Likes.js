@@ -4,7 +4,6 @@ import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 
 const Likes = ({ likes }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
-  console.log("LIKE UPDATE");
   const userId = user?.result.googleId || user?.result?._id;
 
   if (likes.length > 0) {

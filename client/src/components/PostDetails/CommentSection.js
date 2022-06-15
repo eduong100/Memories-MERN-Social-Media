@@ -22,11 +22,6 @@ const CommentSection = ({ post }) => {
     commentsRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
-  // useEffect(() => {
-  //   console.log(post);
-  //   setComments(post?.comments);
-  // }, [post]);
-
   return (
     <div>
       <div className={classes.commentsOuterContainer}>

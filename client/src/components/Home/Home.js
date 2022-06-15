@@ -29,7 +29,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") || 1;
-  console.log(page);
   const searchQuery = searchParams.get("searchQuery");
   //const tags = searchParams.get("tags");
 
@@ -50,9 +49,7 @@ const Home = () => {
 
   const searchPost = () => {
     if (search.trim() || tags) {
-      console.log("PRE NAV");
       dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
-      console.log("NAV");
       navigate(
         `/posts/search?searchQuery=${search || ""}&tags=${tags.join(",")}`
       );

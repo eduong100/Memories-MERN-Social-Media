@@ -9,13 +9,10 @@ const auth = async (req, res, next) => {
     const isGoog = req.headers.isgoog;
     // const isCustomAuth = token.length < 500;
     let decodedData;
-    console.log("TOKEN LENGTH", token.length);
     if (token && !isGoog) {
-      console.log("DECODE NON GOOGLE");
       decodedData = jwt.verify(token, "test");
       req.userId = decodedData?.id;
     } else {
-      console.log("DECODE GOOGLE");
       const user_info = await Axios.get(
         `https://www.googleapis.com/oauth2/v1/userinfo?alt=json`,
         {

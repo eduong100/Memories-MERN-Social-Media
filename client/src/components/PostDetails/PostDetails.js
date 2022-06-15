@@ -15,7 +15,6 @@ import CommentSection from "./CommentSection.js";
 import useStyles from "./styles";
 
 const PostDetails = () => {
-  console.log("POST DETAILS");
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,7 +47,6 @@ const PostDetails = () => {
   };
 
   const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
-  console.log(recommendedPosts);
   return (
     <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
       <div className={classes.card}>

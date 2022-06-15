@@ -23,10 +23,8 @@ function Navbar() {
 
   useEffect(() => {
     (async () => {
-      console.log(user);
       if (user) {
         if (user.result.googleId) {
-          console.log("GOOG");
           try {
             await Axios.get(
               `https://www.googleapis.com/oauth2/v1/userinfo?alt=json`,
@@ -34,13 +32,10 @@ function Navbar() {
                 headers: { Authorization: `Bearer ${user.token}` },
               }
             );
-            console.log("TOKEN STILL VALID");
           } catch (err) {
-            console.log("TOKEN INVALID");
             logout();
           }
         } else {
-          console.log("NO");
           const decodedToken = decode(user?.token);
           if (decodedToken.exp * 1000 < new Date().getTime()) logout();
         }
