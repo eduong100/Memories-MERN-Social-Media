@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5000/" });
+const API = axios.create({
+  baseURL: "https://mernsocialmedia-ethanduong.herokuapp.com/",
+});
 
 API.interceptors.request.use((req) => {
   const storage = localStorage.getItem("profile");
