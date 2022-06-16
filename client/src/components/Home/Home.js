@@ -18,6 +18,8 @@ import Form from "../Form/Form";
 import useStyles from "./styles";
 
 import { getPostsBySearch } from "../../actions/posts";
+import { GH_PATH } from "../../constants/actionTypes.js";
+
 import Pagination from "../Pagination";
 
 const Home = () => {
@@ -51,10 +53,11 @@ const Home = () => {
     if (search.trim() || tags) {
       dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
       navigate(
-        `/posts/search?searchQuery=${search || ""}&tags=${tags.join(",")}`
+        GH_PATH +
+          `/posts/search?searchQuery=${search || ""}&tags=${tags.join(",")}`
       );
     } else {
-      navigate("/");
+      navigate(GH_PATH + "/");
     }
   };
 

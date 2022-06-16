@@ -9,6 +9,8 @@ import PFP from "../../images/PFP.jpg";
 import decode from "jwt-decode";
 import Axios from "axios";
 
+import { GH_PATH } from "../../constants/actionTypes.js";
+
 function Navbar() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -17,7 +19,7 @@ function Navbar() {
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
-    navigate("/auth");
+    navigate(GH_PATH + "/auth");
     setUser(null);
   };
 
@@ -47,7 +49,7 @@ function Navbar() {
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <div className={classes.brandContainer}>
-        <Link to="/" className={classes.brandContainer}>
+        <Link to={GH_PATH + "/"} className={classes.brandContainer}>
           <img src={memoriesText} alt="icon" height="45px" />
         </Link>
         <a
@@ -84,7 +86,7 @@ function Navbar() {
         ) : (
           <Button
             component={Link}
-            to="/auth"
+            to={GH_PATH + "/auth"}
             variant="contained"
             color="primary"
           >

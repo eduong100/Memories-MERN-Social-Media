@@ -9,6 +9,7 @@ import {
   FETCH_POST,
   COMMENT,
   DEFAULT_FILE,
+  GH_PATH,
 } from "../constants/actionTypes";
 import * as api from "../api";
 
@@ -57,7 +58,7 @@ export const createPost = (post, navigate) => async (dispatch) => {
     const { data } = await api.createPost(post);
     dispatch({ type: CREATE, payload: data });
     dispatch({ type: END_LOADING });
-    navigate(`/posts/${data._id}`);
+    navigate(GH_PATH + `/posts/${data._id}`);
   } catch (err) {
     console.log(err);
   }
@@ -69,7 +70,7 @@ export const updatePost = (id, post, navigate) => async (dispatch) => {
     const { data } = await api.updatePost(id, post);
     dispatch({ type: UPDATE, payload: data });
     dispatch({ type: END_LOADING });
-    navigate(`/posts/${id}`);
+    navigate(GH_PATH + `/posts/${id}`);
   } catch (err) {
     console.log(err);
   }

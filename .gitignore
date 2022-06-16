@@ -1,3 +1,5 @@
 node_modules
 mongo_url.js
 .env
+# Local Netlify folder
+.netlify

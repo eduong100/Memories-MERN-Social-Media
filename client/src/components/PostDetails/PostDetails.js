@@ -14,6 +14,8 @@ import { getPost, getPostsBySearch } from "../../actions/posts.js";
 import CommentSection from "./CommentSection.js";
 import useStyles from "./styles";
 
+import { GH_PATH } from "../../constants/actionTypes.js";
+
 const PostDetails = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
@@ -43,7 +45,7 @@ const PostDetails = () => {
   }
 
   const openPost = (_id) => {
-    navigate(`/posts/${_id}`);
+    navigate(GH_PATH + `/posts/${_id}`);
   };
 
   const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
