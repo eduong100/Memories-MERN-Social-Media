@@ -12,10 +12,10 @@ MERN-Social-Media is a fully functioning and deployed full-stack web application
 
 ![MERN STACK OVERVIEW](./readme_resources/MERN_mongoose.png)
 
-As a full-stack web app, there are many parts/components that work together to make this application functional. We use React for our front-end, Node and Express for our backend server (REST API), and MongoDB as our database. Furthermore, we use React-Router for client-side routing and Mongoose as our Object Document Mapper. Lastly, we use React-Redux to handle global state management. The above diagram demonstrates the high-level relationship that these technologies have with each other (minus redux). 
+As a full-stack web app, there are many parts/components that work together to make this application functional. We use React for our front-end, Node and Express for our back-end server (REST API), and MongoDB as our database. Furthermore, we use React-Router for client-side routing and Mongoose as our Object Document Mapper. Lastly, we use React-Redux to handle global state management. The above diagram demonstrates the high-level relationship that these technologies have with each other (minus redux). 
 
-<h2>Backend:</h2>
-All backend code is stored in a server folder. The server folder contains an additional git repository that is used for pushing our node server onto Heroku. The backend section of this readme is split into database, server, and authentication sections. 
+<h2>Back-End:</h2>
+All back-end code is stored in a server folder. The server folder contains an additional git repository that is used for pushing our node server onto Heroku. The back-end section of this readme is split into database, server, and authentication sections. 
  
 <h3>Database:</h3>
 MongoDB and the Express server communicate via mongoose. Data is stored and retrieved according to the following mongoose schema(s): 
@@ -65,7 +65,7 @@ Thus our database has two collections: one for users and one for posts. Instead 
 
 Our server is an Express application that listens on a certain URL and accepts and sends data to/from the front-end in JSON formats.
 
-Our express app listens on port localhost:5000 for local development and on this <a>Heroku URL</a> during production. Express creates a REST API for the front-end to use on these previously mentioned URLs. Our front-end can access the API using the following server endpoints. As mentioned previously, data is sent and received as JSON. 
+Our express app listens on port localhost:5000 for local development and on this <a href=https://mernsocialmedia-ethanduong.herokuapp.com/>Heroku URL</a> during production. Express creates a REST API for the front-end to use on these previously mentioned URLs. Our front-end can access the API using the following server endpoints. As mentioned previously, data is sent and received as JSON. 
 
 ![SERVER_ENDPOINTS](./readme_resources/server_routes.PNG)
 
@@ -77,6 +77,12 @@ We have two different styles of authentication: one with Google OAuth2 and anoth
 
 <h2>Front-End:</h2>
 
-All front-end code is stored in the client folder. The front-end can be ran locally using `$ npm start` or you can access the deployed version on <a>Netlify</a>. The front-end section of this readme is split into routes and redux sections. 
+All front-end code is stored in the client folder. The front-end can be ran locally using `$ npm start` or you can access the deployed version on <a href="https://mern-socialmedia-ethanduong.netlify.app/posts">Netlify</a>. The front-end section of this readme is split into routes and redux sections. 
 
 <h3>Front-End Routes:</h3>
+
+![REACT ROUTER](./readme_resources/front-end_routes.PNG)
+
+Routes on our front-end are handled by react-router. The router is responsible for loading components dynamically depending on the URL requested by the user. Pages accessible by the user are located in the table above. We have a section for front-end routes given that React-Router serves routes on the client side. That is, the front-end does not need to make a request to the back-end for any html or css: all styles and templates are handled client side. The server only serves JSON requested by our React components. The below image demonstrates how our router can serve components without accessing the web.
+
+![REACT ROUTER](./readme_resources/React_Router.png)
