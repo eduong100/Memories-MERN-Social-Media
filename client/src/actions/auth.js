@@ -1,4 +1,4 @@
-import { GH_PATH, AUTH } from "../constants/actionTypes";
+import { PREPEND_PATH, AUTH } from "../constants/actionTypes";
 import * as api from "../api";
 
 export const signin = (formData, navigate, setError) => async (dispatch) => {
@@ -6,7 +6,7 @@ export const signin = (formData, navigate, setError) => async (dispatch) => {
     const { data } = await api.signIn(formData);
 
     dispatch({ type: AUTH, data });
-    navigate(GH_PATH + "/");
+    navigate(PREPEND_PATH + "/");
   } catch (err) {
     console.log(err);
     setError(true);
@@ -18,7 +18,7 @@ export const signup = (formData, navigate) => async (dispatch) => {
     const { data } = await api.signUp(formData);
 
     dispatch({ type: AUTH, data });
-    navigate(GH_PATH + "/");
+    navigate(PREPEND_PATH + "/");
   } catch (err) {
     console.log(err);
   }

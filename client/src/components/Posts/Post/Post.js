@@ -14,7 +14,7 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 import { deletePost, likePost } from "../../../actions/posts";
 import { useNavigate } from "react-router-dom";
-import { GH_PATH } from "../../../constants/actionTypes";
+import { PREPEND_PATH } from "../../../constants/actionTypes";
 
 import useStyles from "./styles";
 
@@ -28,7 +28,7 @@ const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const openPost = () => {
-    navigate(GH_PATH + `/posts/${post._id}`);
+    navigate(PREPEND_PATH + `/posts/${post._id}`);
   };
 
   const handleClick = async () => {

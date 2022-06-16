@@ -18,7 +18,7 @@ import Form from "../Form/Form";
 import useStyles from "./styles";
 
 import { getPostsBySearch } from "../../actions/posts";
-import { GH_PATH } from "../../constants/actionTypes.js";
+import { PREPEND_PATH } from "../../constants/actionTypes.js";
 
 import Pagination from "../Pagination";
 
@@ -53,11 +53,11 @@ const Home = () => {
     if (search.trim() || tags) {
       dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
       navigate(
-        GH_PATH +
+        PREPEND_PATH +
           `/posts/search?searchQuery=${search || ""}&tags=${tags.join(",")}`
       );
     } else {
-      navigate(GH_PATH + "/");
+      navigate(PREPEND_PATH + "/");
     }
   };
 

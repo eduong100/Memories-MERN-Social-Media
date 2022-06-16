@@ -1,6 +1,8 @@
 import PostMessage from "../models/postMessage.js";
 import mongoose from "mongoose";
+
 const LIMIT = 8;
+
 export const getPosts = async (req, res) => {
   const { page } = req.query;
   console.log("GETTING");
@@ -60,6 +62,8 @@ export const getPostsBySearch = async (req, res) => {
 
 export const createPost = async (req, res) => {
   console.log("CREATING");
+  if (!req.userId) return res.json({ message: "Unauthenticated" });
+
   const post = req.body;
   const newPost = new PostMessage({
     ...post,
@@ -75,6 +79,8 @@ export const createPost = async (req, res) => {
 };
 
 export const updatePost = async (req, res) => {
+  if (!req.userId) return res.json({ message: "Unauthenticated" });
+
   console.log("UPDATING");
   const { id } = req.params;
   const post = req.body;
@@ -92,6 +98,8 @@ export const updatePost = async (req, res) => {
 };
 
 export const deletePost = async (req, res) => {
+  if (!req.userId) return res.json({ message: "Unauthenticated" });
+
   console.log("DELETING");
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id))
@@ -125,6 +133,7 @@ export const likePost = async (req, res) => {
 };
 
 export const commentPost = async (req, res) => {
+  if (!req.userId) return res.json({ message: "Unauthenticated" });
   const { id } = req.params;
   const { value } = req.body;
 

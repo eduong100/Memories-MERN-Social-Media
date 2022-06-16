@@ -7,7 +7,7 @@ import { getPosts } from "../actions/posts";
 
 import useStyles from "./styles";
 
-import { GH_PATH } from "../constants/actionTypes";
+import { PREPEND_PATH } from "../constants/actionTypes";
 
 const Paginate = ({ page }) => {
   const { numberOfPages } = useSelector((state) => state.posts);
@@ -30,7 +30,7 @@ const Paginate = ({ page }) => {
         <PaginationItem
           {...item}
           component={Link}
-          to={GH_PATH + `/posts?page=${item.page}`}
+          to={PREPEND_PATH + `/posts?page=${item.page}`}
         />
       )}
     />

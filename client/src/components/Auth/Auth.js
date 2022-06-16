@@ -17,7 +17,7 @@ import Input from "./Input";
 import { signin, signup } from "../../actions/auth.js";
 import Icon from "./icon";
 import useStyles from "./styles";
-import { AUTH, GH_PATH } from "../../constants/actionTypes.js";
+import { AUTH, PREPEND_PATH } from "../../constants/actionTypes.js";
 
 // Need google id and token
 
@@ -77,7 +77,7 @@ function Auth() {
     result.googleId = result.id;
     try {
       dispatch({ type: AUTH, data: { result, token } });
-      navigate(GH_PATH + "/");
+      navigate(PREPEND_PATH + "/");
     } catch (err) {
       console.log(err);
     }

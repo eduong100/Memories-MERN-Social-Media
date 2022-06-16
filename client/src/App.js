@@ -9,7 +9,7 @@ import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Auth from "./components/Auth/Auth";
 import PostDetails from "./components/PostDetails/PostDetails";
-import { GH_PATH } from "./constants/actionTypes.js";
+import { PREPEND_PATH } from "./constants/actionTypes.js";
 
 // PATH FOR GITHUB PAGES COMMENT OUT IF RUNNING LOCALLY:
 
@@ -23,19 +23,26 @@ const App = () => {
         <Container maxWidth="xl">
           <Navbar />
           <Routes>
-            <Route path={GH_PATH + "/posts"} exact element={<Home />} />
-            <Route path={GH_PATH + "/posts/search"} exact element={<Home />} />
-            <Route path={GH_PATH + "/posts/:id"} element={<PostDetails />} />
-            <Route exact path={GH_PATH + "/auth"} element={<Auth />} />
+            <Route path={PREPEND_PATH + "/posts"} exact element={<Home />} />
+            <Route
+              path={PREPEND_PATH + "/posts/search"}
+              exact
+              element={<Home />}
+            />
+            <Route
+              path={PREPEND_PATH + "/posts/:id"}
+              element={<PostDetails />}
+            />
+            <Route exact path={PREPEND_PATH + "/auth"} element={<Auth />} />
             <Route
               replace={true}
-              path={GH_PATH + "/"}
-              element={<Navigate to={GH_PATH + "/posts"} />}
+              path={PREPEND_PATH + "/"}
+              element={<Navigate to={PREPEND_PATH + "/posts"} />}
             />
             <Route
               replace={true}
               path={"/"}
-              element={<Navigate to={GH_PATH + "/posts"} />}
+              element={<Navigate to={PREPEND_PATH + "/posts"} />}
             />
           </Routes>
         </Container>
