@@ -50,8 +50,18 @@ const Post = ({ post, setCurrentId }) => {
         onClick={openPost}
       />
       <div className={classes.overlay}>
-        <Typography variant="h6">{post.name}</Typography>
-        <Typography variant="body2">
+        <Typography
+          variant="h6"
+          style={{ cursor: "pointer" }}
+          onClick={openPost}
+        >
+          {post.name}
+        </Typography>
+        <Typography
+          variant="body2"
+          style={{ cursor: "pointer" }}
+          onClick={openPost}
+        >
           {moment(post.createdAt).fromNow()}
         </Typography>
       </div>
