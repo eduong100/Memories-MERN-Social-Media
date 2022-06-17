@@ -6,7 +6,7 @@
 
 <h3>Features:</h3>
 
-MERN-Social-Media is a fully functioning and deployed full-stack web application accessible on <a href="https://mern-socialmedia-ethanduong.netlify.app/posts">Netlify</a>. Users can authenticate using our custom authentication system or using Google Auth. Authenticated users can create new posts, like other posts, comment on other posts, and edit/delete their posts. Our home page allows users to view eight posts at a time. The home page is paginated meaning that users can view the next set of posts by moving to the next page. Furthermore, users can query posts based on title and/or tags and can view posts individually on a details page. In summary, our social-media application has full CRUD functionality and includes features such as search, authentication, pagination, comments, and likes.
+MERN-Social-Media is a fully functioning and deployed full-stack web application accessible on <a href="https://mern-socialmedia-ethanduong.netlify.app/posts">Netlify</a>. Users can authenticate using our custom authentication system or using Google Auth. Authenticated users can create new posts, like other posts, comment on other posts, and edit/delete their posts. Our home page allows users to view eight posts at a time. The home page is paginated meaning that users can view the next set of posts by moving to the next page. Furthermore, users can query posts based on title and/or tags and can view posts individually on a details page. In summary, our social-media application has full CRUD functionality and includes features such as search, authentication, pagination, comments, likes, and tag-based-post-recommendations.
 
 <h3>Technologies:</h3>
 
