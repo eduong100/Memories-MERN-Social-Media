@@ -86,3 +86,9 @@ All front-end code is stored in the client folder. The front-end can be ran loca
 Routes on our front-end are handled by react-router. The router is responsible for loading components dynamically depending on the URL requested by the user. Pages accessible by the user are located in the table above. We have a section for front-end routes given that React-Router serves routes on the client side. That is, the front-end does not need to make a request to the back-end for any html or css: all styles and templates are handled client side. The server only serves JSON requested by our React components. The below image demonstrates how our router can serve components without accessing the web.
 
 ![REACT ROUTER](./readme_resources/React_Router.png)
+
+<h3>React Redux:</h3>
+
+Lastly, we use Redux to handle our global post and auth states. We made it so that our redux actions use axios to make calls to our back-end API. Thus our actions can pass on any data received from our database to our reducers which subsequently store the data into our global store. Use of Redux made our React application highly scalable as any component is now able to gain access to valuable post/authenitcation data from our database. The below image gives a rough overview of the Redux workflow. Out of the new technologies I learned during this project, Redux is my favorite.
+
+![REACT REDUX](./readme_resources/redux_workflow.png)
