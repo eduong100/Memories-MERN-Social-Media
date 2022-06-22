@@ -1,4 +1,4 @@
-# MERN-Social-Media
+# Memories-Social-Media
 
 <b>A Full-stack Social Media Application Using the MERN Stack</b>
 
